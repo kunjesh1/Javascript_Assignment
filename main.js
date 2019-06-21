@@ -35,10 +35,11 @@ btn.addEventListener("click", function () {
 
 
     var ourRequest = new XMLHttpRequest();
-    ourRequest.open('GET', 'https://kunjesh1.github.io/assignment/battles.json');
+    ourRequest.open('GET', 'https://kunjesh1.github.io/assignment/battles.json',true);
     ourRequest.onload = function () {
         var data = JSON.parse(ourRequest.responseText);
        
+        
 
         result.most_active.attacker_king=calculate_most_frequent(data.map((d) => d.attacker_king));
         result.most_active.defender_king=calculate_most_frequent(data.map((d) => d.defender_king));
@@ -49,13 +50,14 @@ btn.addEventListener("click", function () {
       
         
         calculate_size(data.filter(d=>d.defender_size!==null).map(d=>d.defender_size));
-    
-        
+          
+        renderData();
 
     };
 
     ourRequest.send();
-
+     
+    
 
 });
 
@@ -106,11 +108,11 @@ function outcome_output(data) {
 function renderData() {
  
 
-    var htmlString=result;
-    animal-info.insertAdjacentHTML('beforeend',result)
+   
+    document.getElementById("print").innerHTML = JSON.stringify(result, undefined, 2);
    // console.log(val);
 
-    return val;
+    return result;
 }
 
 console.log(result);
